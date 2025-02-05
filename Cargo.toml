@@ -7,6 +7,11 @@ description = "A yolo prediction frame with torch-rs "
 repository = "https://github.com/zhao-leo/yolo_binding"
 readme = "readme.md"
 authors = ["zhao-leo <18055219130@163.com>"]
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+    "*.ttf"
+]
 
 [dependencies]
 tch = "0.19.0"
