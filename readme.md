@@ -21,3 +21,5 @@ so in this module you can use your cuda without import `torch_cuda.dll`
 If possible I will add more useful functions but currently it is a tool for my competition.
 
 By the way, I will add linux support soon.
+
+TODO:fix docs.rs build problem.
