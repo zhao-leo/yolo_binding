@@ -33,9 +33,9 @@ pub fn load_model_from_path(model_path: &str, cuda: bool) -> Result<YOLO, Box<dy
     } else {
         Device::Cpu
     }; // device choiced
-    println!("Module Device: {:?}", device);
+    // println!("Module Device: {:?}", device);
     let model = CModule::load_on_device(Path::new(model_path), device).expect("load model failed");
-    println!("Model loaded");
+    // println!("Model loaded");
     let device = match device {
         Device::Cuda(_) => YOLODevice::Gpu,
         Device::Cpu => YOLODevice::Gpu,
@@ -82,7 +82,7 @@ pub fn load_model_from_path(model_path: &str, cuda: bool) -> Result<YOLO, Box<dy
     let output_bytes = output_bytes[..output_bytes.len() - 4].to_vec();
     let v: Value = serde_json::from_slice(&output_bytes)?;
     let types = v["names"].as_object().unwrap();
-    println!("{:?} Types loaded", types.len());
+    // println!("{:?} Types loaded", types.len());
     let mut names_map: HashMap<i64, String> = HashMap::new();
     for (key, value) in types.iter() {
         names_map.insert(
@@ -105,7 +105,7 @@ pub fn load_one_image(image_path: &str) -> Result<Tensor, Box<dyn Error>> {
         .unsqueeze(0)
         .to_kind(tch::Kind::Float)
         / 255.;
-    println!("Resized Image size: {:?}", image);
+    // println!("Resized Image size: {:?}", image);
     Ok(image)
 }
 pub fn load_images_from_dir(image_dir: &str) -> Result<Tensor, Box<dyn Error>> {
@@ -113,7 +113,7 @@ pub fn load_images_from_dir(image_dir: &str) -> Result<Tensor, Box<dyn Error>> {
         .unwrap()
         .to_kind(tch::Kind::Float)
         / 255.;
-    println!("Resized Image size: {:?}", image_tensor);
+    // println!("Resized Image size: {:?}", image_tensor);
     Ok(image_tensor)
 }
 
@@ -124,6 +124,6 @@ pub fn load_one_image_from_memory(image_bytes: &[u8]) -> Result<Tensor, Box<dyn 
         .unsqueeze(0)
         .to_kind(tch::Kind::Float)
         / 255.;
-    println!("Resized Image size: {:?}", image);
+    // println!("Resized Image size: {:?}", image);
     Ok(image)
 }

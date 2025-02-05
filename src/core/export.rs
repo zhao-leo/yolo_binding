@@ -1,6 +1,6 @@
 use std::error::Error;
 use tch::Tensor;
-fn filter_confidence_async(
+fn filter_confidence(
     tensor: &Tensor,
     confidence: f64,
 ) -> Vec<(i64, i64, i64, i64, i64, f64)> {
@@ -99,7 +99,7 @@ pub fn post_process(
     confidence: f64,
     threshold: f64,
 ) -> Result<Vec<(i64, i64, i64, i64, i64, f64)>, Box<dyn Error>> {
-    let res = filter_confidence_async(&tensor, confidence);
+    let res = filter_confidence(&tensor, confidence);
     let res = nms(res, threshold);
     Ok(res)
 }

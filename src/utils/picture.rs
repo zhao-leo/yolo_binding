@@ -1,83 +1,3 @@
-// #![allow(unused)]
-// use image::{self, DynamicImage, GenericImageView, ImageBuffer, Rgba};
-// use std::error::Error;
-// use std::path::Path;
-// use tch::{vision, Tensor};
-// use ab_glyph;
-// use image::{self, DynamicImage, GenericImageView, Rgba};
-// use imageproc::drawing::{draw_line_segment_mut, draw_text_mut};
-// use serde_json::Value;
-// use std::{
-//     env,
-//     error::Error,
-//     ffi::{c_char, CString},
-//     fs,
-//     path::Path,
-//     str::FromStr,
-//     time::Instant,
-// };
-// use tch::{CModule, Device, Tensor};
-// use winapi::um::libloaderapi::LoadLibraryA;
-
-// fn image_process(
-//     picture: &mut DynamicImage,
-//     xywh: Tensor,
-//     type_name: &str,
-// ) -> Result<(), Box<dyn Error>> {
-//     //x,y,w,h is based on 640*640 image size
-//     let (mut x, mut y, mut w, mut h) = (
-//         xywh.double_value(&[0, 0]),
-//         xywh.double_value(&[0, 1]),
-//         xywh.double_value(&[0, 2]),
-//         xywh.double_value(&[0, 3]),
-//     );
-//     println!("x: {:.2}, y: {:.2}, w: {:.2}, h: {:.2}", x, y, w, h);
-//     (x, y, w, h) = (x / 640., y / 640., w / 640., h / 640.); //Normalize to 1
-//     let (width, height) = picture.dimensions();
-//     (x, y, w, h) = (
-//         x * width as f64,
-//         y * height as f64,
-//         w * width as f64,
-//         h * height as f64,
-//     );
-//     let (x1, y1, x2, y2) = (x - w / 2., y - h / 2., x + w / 2., y + h / 2.);
-//     draw_line_segment_mut(
-//         picture,
-//         (x1 as f32, y1 as f32),
-//         (x2 as f32, y1 as f32),
-//         Rgba([255, 0, 0, 255]),
-//     );
-//     draw_line_segment_mut(
-//         picture,
-//         (x2 as f32, y1 as f32),
-//         (x2 as f32, y2 as f32),
-//         Rgba([255, 0, 0, 255]),
-//     );
-//     draw_line_segment_mut(
-//         picture,
-//         (x2 as f32, y2 as f32),
-//         (x1 as f32, y2 as f32),
-//         Rgba([255, 0, 0, 255]),
-//     );
-//     draw_line_segment_mut(
-//         picture,
-//         (x1 as f32, y2 as f32),
-//         (x1 as f32, y1 as f32),
-//         Rgba([255, 0, 0, 255]),
-//     );
-//     let font = ab_glyph::FontRef::try_from_slice(include_bytes!("./arial.ttf"))?;
-//     let scale = ab_glyph::PxScale::from(20.0);
-//     draw_text_mut(
-//         picture,
-//         Rgba([255, 0, 0, 255]),
-//         x1 as i32,
-//         y1 as i32, // 调整文本位置
-//         scale,
-//         &font,
-//         type_name,
-//     );
-//     Ok(())
-// }
 use image::{DynamicImage, GenericImageView, ImageReader, Rgba};
 use imageproc::drawing::{draw_line_segment_mut, draw_text_mut};
 use std::{collections::HashMap, error::Error, fs, ops::Index, path::Path};
@@ -137,7 +57,6 @@ pub fn export_images(
             let file_name = path.file_name().unwrap().to_str().unwrap();
             let output_img = export(tags, image.index(index).to_vec(), img)?;
             let output_path = Path::new(output_dir).join(file_name);
-            println!("{:?}", output_path);
             output_img.save(output_path)?;
         }
     }
