@@ -22,7 +22,7 @@ fn export(
         draw_line_segment_mut(&mut picture, (x2, y1), (x2, y2), Rgba([255, 0, 0, 255]));
         draw_line_segment_mut(&mut picture, (x2, y2), (x1, y2), Rgba([255, 0, 0, 255]));
         draw_line_segment_mut(&mut picture, (x1, y2), (x1, y1), Rgba([255, 0, 0, 255]));
-        let font = ab_glyph::FontRef::try_from_slice(include_bytes!("arial.ttf")).unwrap();
+        let font = ab_glyph::FontRef::try_from_slice(include_bytes!("HarmonyOS_Sans_Regular.ttf")).unwrap();
         let scale = ab_glyph::PxScale::from(20.0);
         draw_text_mut(
             &mut picture,
