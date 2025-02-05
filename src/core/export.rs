@@ -31,7 +31,6 @@ fn filter_confidence_async(
     }
     filtered_results
 }
-
 fn nms(
     mut boxes: Vec<(i64, i64, i64, i64, i64, f64)>,
     threshold: f64,
@@ -46,7 +45,6 @@ fn nms(
         let y2 = y + h / 2.0;
         (x1, y1, x2, y2)
     };
-    // 计算两个检测框的 IoU
     let compute_iou =
         |a: &(i64, i64, i64, i64, i64, f64), b: &(i64, i64, i64, i64, i64, f64)| -> f64 {
             let a_rect = to_xyxy(a.0, a.1, a.2, a.3);
@@ -88,7 +86,6 @@ fn nms(
             }
         }
     }
-    // 收集未抑制的检测框
     boxes //
         .into_iter()
         .enumerate()
