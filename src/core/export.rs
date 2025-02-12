@@ -99,6 +99,10 @@ pub fn post_process(
     confidence: f64,
     threshold: f64,
 ) -> Result<Vec<(i64, i64, i64, i64, i64, f64)>, Box<dyn Error>> {
+    //！ Post-process the output tensor to get the bounding boxes
+    //！ tensor: the output tensor from the model [n, X, 8400]
+    //！ confidence: the confidence threshold
+    //！ threshold: the NMS threshold
     let res = filter_confidence(&tensor, confidence);
     let res = nms(res, threshold);
     Ok(res)

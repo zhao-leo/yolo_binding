@@ -1,5 +1,23 @@
 # A rust binding for yolov8 or higher aimed at detection
 
+Quick Start:
+```rust
+use yolo_binding::{core::*, utils::*};
+use std::ops::Index;
+fn main() {
+    const IMAGE_PATH: &str = "test.jpg";
+    const OUTPUT_PATH: &str = "output.jpg";
+    const MODEL_PATH: &str = "yolov5s.torchscript.pt";
+
+    let model = YOLO::new(MODEL_PATH, true);
+    let image = load_one_image("test.jpg").unwrap();
+    let output = model.predict(&image).unwrap();
+    let results = get_results(&output, 0.5, 0.5).unwrap();
+    let picture = picture::export_one_image(&model.types, results.index(0).to_vec(), IMAGE_PATH).unwrap();
+    picture.save(OUTPUT_PATH).unwrap();
+}
+```
+
 This create is a binding for yolov8 or higher.
 
 Currently, it supports load module from a torchscript file.

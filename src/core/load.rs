@@ -15,6 +15,10 @@ use tch::{vision, CModule, Device, Tensor};
 use winapi::um::libloaderapi::LoadLibraryA;
 
 pub fn load_model_from_path(model_path: &str, cuda: bool) -> Result<YOLO, Box<dyn Error>> {
+    //！ Load the model from the path
+    //！ model_path: the path of the model
+    //！ cuda: whether to use cuda
+    //！ return: the YOLO model
     let device = if cuda == true {
         let mut libtorch_path = env::var("LIBTORCH").unwrap();
         libtorch_path.push_str(r"\lib\torch_cuda.dll");
@@ -99,6 +103,9 @@ pub fn load_model_from_path(model_path: &str, cuda: bool) -> Result<YOLO, Box<dy
 }
 
 pub fn load_one_image(image_path: &str) -> Result<Tensor, Box<dyn Error>> {
+    //！ Load one image from the path
+    //！ image_path: the path of the image
+    //！ return: the image tensor
     let image_tensor = vision::image::load(Path::new(&image_path))?;
     let image = tch::vision::image::resize(&image_tensor, 640, 640)
         .unwrap()
@@ -109,6 +116,9 @@ pub fn load_one_image(image_path: &str) -> Result<Tensor, Box<dyn Error>> {
     Ok(image)
 }
 pub fn load_images_from_dir(image_dir: &str) -> Result<Tensor, Box<dyn Error>> {
+    //！ Load images from the directory
+    //！ image_dir: the directory of the images
+    //！ return: the images tensor
     let image_tensor = vision::image::load_dir(Path::new(&image_dir), 640, 640)
         .unwrap()
         .to_kind(tch::Kind::Float)
@@ -118,6 +128,9 @@ pub fn load_images_from_dir(image_dir: &str) -> Result<Tensor, Box<dyn Error>> {
 }
 
 pub fn load_one_image_from_memory(image_bytes: &[u8]) -> Result<Tensor, Box<dyn Error>> {
+    //！ Load one image from the memory
+    //！ image_bytes: the bytes of the image
+    //！ return: the image tensor
     let image_tensor = vision::image::load_from_memory(image_bytes)?;
     let image = tch::vision::image::resize(&image_tensor, 640, 640)
         .unwrap()

@@ -1,15 +1,13 @@
 [package]
 name = "yolo_binding"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2021"
 license = "MIT"
 description = "A yolo prediction frame with torch-rs "
 repository = "https://github.com/zhao-leo/yolo_binding"
+documentation = "https://yolo-rs.zhaocloud.work/yolo_binding/index.html"
 readme = "readme.md"
 authors = ["zhao-leo <18055219130@163.com>"]
-include = [
-    "src/**/*",
-]
 
 [dependencies]
 tch = "0.19.0"
@@ -18,10 +16,3 @@ image = "0.25.5"
 imageproc = "0.25.0"
 ab_glyph = "0.2.29"
 winapi = {version = "0.3.9", features = ["libloaderapi"]}
-
-[features]
-doc-only = ["tch/doc-only"]
-
-[package.metadata.docs.rs]
-features = ["doc-only"]
-default-target = "x86_64-pc-windows-msvc"

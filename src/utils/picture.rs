@@ -42,6 +42,12 @@ pub fn export_images(
     image_dir: &str,
     output_dir: &str,
 ) -> Result<(), Box<dyn Error>> {
+    //! Export the images with the bounding boxes
+    //! tags: the tags of the classes
+    //! image: the images with the bounding boxes
+    //! image_dir: the directory of the images
+    //! output_dir: the directory of the output images
+    //! return: the result of the export
     let output_dir = Path::new(output_dir);
     if !output_dir.exists() {
         fs::create_dir(&Path::new(output_dir))?;
@@ -68,6 +74,11 @@ pub fn export_one_image(
     image: Vec<(i64, i64, i64, i64, i64, f64)>,
     image_path: &str,
 ) -> Result<DynamicImage, Box<dyn Error>> {
+    //! Export one image with the bounding boxes
+    //! tags: the tags of the classes
+    //! image: the image with the bounding boxes
+    //! image_path: the path of the image
+    //! return: the result of the export
     let image_reader = ImageReader::open(Path::new(image_path))?
         .with_guessed_format()
         .unwrap();

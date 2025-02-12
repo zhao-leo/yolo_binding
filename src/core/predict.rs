@@ -4,6 +4,10 @@ use std::error::Error;
 use tch::{Device, Tensor};
 
 pub fn pred(model: &YOLO, input: &Tensor) -> Result<Tensor, Box<dyn Error>> {
+    //! Predict the input tensor
+    //! model: the YOLO model
+    //! input: the input tensor
+    //! return: the output tensor
     let device = match model.cuda {
         YOLODevice::Cpu => Device::Cpu,
         YOLODevice::Gpu => Device::cuda_if_available(),
