@@ -32,12 +32,8 @@ It uses the yolo-metadata information and detect `0x504b0708` as the end of meta
 
 so it may not work correctly on your computer.
 
-The module fix the import bug of torch-rs (could not use cuda)
-
-so in this module you can use your cuda without import `torch_cuda.dll`
-
 If possible I will add more useful functions but currently it is a tool for my competition.
 
-By the way, I will add linux support soon.
+Linux is now supported.
 
 TODO:fix docs.rs build problem.
