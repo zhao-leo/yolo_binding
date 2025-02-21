@@ -5,14 +5,14 @@ use std::fs::File;
 use std::io::{BufReader, Read, Write};
 use std::{
     collections::HashMap,
-    env,
+    // env,
     error::Error,
-    ffi::{c_char, CString},
+    // ffi::{c_char, CString},
     path::Path,
-    str::FromStr,
+    // str::FromStr,
 };
 use tch::{vision, CModule, Device, Tensor};
-use winapi::um::libloaderapi::LoadLibraryA;
+// use winapi::um::libloaderapi::LoadLibraryA;
 
 pub fn load_model_from_path(model_path: &str, cuda: bool) -> Result<YOLO, Box<dyn Error>> {
     //！ Load the model from the path
@@ -20,23 +20,31 @@ pub fn load_model_from_path(model_path: &str, cuda: bool) -> Result<YOLO, Box<dy
     //！ cuda: whether to use cuda
     //！ return: the YOLO model
     let device = if cuda == true {
-        let mut libtorch_path = env::var("LIBTORCH").unwrap();
-        libtorch_path.push_str(r"\lib\torch_cuda.dll");
-        if Path::new(&libtorch_path).exists() {
-            let path = CString::from_str(&libtorch_path).unwrap();
-            unsafe {
-                LoadLibraryA(path.as_ptr() as *const c_char);
-            }
-            Device::cuda_if_available()
-        } else {
-            panic!(
-                "No {} exist,please check your libtorch version or set 'cuda' false instead",
-                &libtorch_path
-            );
+        match Device::cuda_if_available() {
+            Device::Cuda(device) => Device::Cuda(device),
+            _ => panic!("No cuda device found"),
         }
     } else {
         Device::Cpu
     }; // device choiced
+    // let device = if cuda == true {
+    //     let mut libtorch_path = env::var("LIBTORCH").unwrap();
+    //     libtorch_path.push_str(r"\lib\torch_cuda.dll");
+    //     if Path::new(&libtorch_path).exists() {
+    //         let path = CString::from_str(&libtorch_path).unwrap();
+    //         unsafe {
+    //             LoadLibraryA(path.as_ptr() as *const c_char);
+    //         }
+    //         Device::cuda_if_available()
+    //     } else {
+    //         panic!(
+    //             "No {} exist,please check your libtorch version or set 'cuda' false instead",
+    //             &libtorch_path
+    //         );
+    //     }
+    // } else {
+    //     Device::Cpu
+    // }; // device choiced
     // println!("Module Device: {:?}", device);
     let model = CModule::load_on_device(Path::new(model_path), device).expect("load model failed");
     // println!("Model loaded");

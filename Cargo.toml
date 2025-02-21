@@ -1,6 +1,6 @@
 [package]
 name = "yolo_binding"
-version = "0.2.5"
+version = "0.2.6"
 edition = "2021"
 license = "MIT"
 description = "A yolo prediction frame with torch-rs "
@@ -15,4 +15,4 @@ serde_json = "1.0.138"
 image = "0.25.5"
 imageproc = "0.25.0"
 ab_glyph = "0.2.29"
-winapi = {version = "0.3.9", features = ["libloaderapi"]}
+# winapi = {version = "0.3.9", features = ["libloaderapi"]}
